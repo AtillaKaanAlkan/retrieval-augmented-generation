@@ -1,18 +1,18 @@
 # Retrieval-Augmented Generation (RAG): A Practical Guide
 
-### From the problem of LLM hallucination to grounded, reliable AI — illustrated with astronomical keyword assignment
+### From the problem of LLM hallucination to more _reliable_ AI (illustrated with astronomical keyword assignment)
 
-*Part of the [UAT RAG Tutorial](../README.md) — NASA ADS / AstroConcepts, 2026*
+*Part of the [UAT RAG Tutorial]([../README.md](https://github.com/AtillaKaanAlkan/RAG-LanguageAI2026)) — 2026 Language AI in the Space Sciences Workshop, Baltimore, USA.*
 
 ---
 
 Large Language Models are remarkable. They can write code, explain complex scientific concepts, translate languages, and reason through multi-step problems. But they have a well-known weakness: **they hallucinate**.
 
-When an LLM does not know something precisely, it does not say "I don't know." It generates a confident-sounding answer anyway — one that may be plausible, grammatically correct, and completely wrong.
+When an LLM does not know something precisely, it does not say "I don't know." It generates a confident-sounding answer anyway (one that may be plausible, grammatically correct, and completely wrong).
 
-This is not a bug that will be fixed in the next version. It is a fundamental consequence of how these models work. And it becomes a serious problem the moment you need answers that are **specific, verifiable, and grounded in a particular body of knowledge** — a company's internal documents, a legal database, a medical knowledge base, or a specialised scientific vocabulary.
+This is a fundamental consequence of how these models work. And it becomes a serious problem the moment you need answers that are **specific, verifiable, and grounded in a particular body of knowledge** (such as a company's internal documents, a legal database, a medical knowledge base, or a specialised scientific vocabulary).
 
-**Retrieval-Augmented Generation (RAG)** was developed to address exactly this problem. This post explains what it is, why it works, and when you should use it — illustrated with a concrete case study from astrophysics.
+**Retrieval-Augmented Generation (RAG)** was developed to address exactly this problem. This post explains what it is, why it works, and when you should use it (illustrated with a concrete case study from astrophysics).
 
 ---
 
@@ -20,16 +20,16 @@ This is not a bug that will be fixed in the next version. It is a fundamental co
 
 To understand RAG, you first need to understand why LLMs fail at specialised tasks.
 
-An LLM is trained by reading an enormous quantity of textbooks, websites, scientific papers, and forums, and learning to predict what word comes next. After training on hundreds of billions of words, the model has absorbed a broad, statistical picture of human knowledge. It knows that black holes are dense, that Shakespeare wrote Hamlet, and that Python uses indentation for code blocks.
+An LLM is trained by reading an enormous quantity of textbooks, websites, scientific papers, and forums, and learning to predict what word comes next. After training on hundreds of billions of words, the model has absorbed a broad, statistical picture of the world's knowledge. It knows that black holes are dense, that Shakespeare wrote Hamlet, and that Python uses indentation for code blocks.
 
 But this knowledge is:
 
-- **Frozen at training time** — the model knows nothing about events after its cutoff date
-- **Statistical, not factual** — it learned associations between words, not ground truth
-- **Imprecise at the edges** — common topics are well-represented; niche specialisms are not
-- **Unverifiable** — the model cannot cite where it learned something, because it learned everything simultaneously
+- **Frozen at training time**: the model knows nothing about events after its cutoff date;
+- **Statistical, not factual**: it learned associations between words, not ground truth;
+- **Imprecise at the edges**: common topics are well-represented; niche specialisms are not;
+- **Unverifiable**: the model cannot cite where it learned something, because it learned everything simultaneously.
 
-When you ask an LLM about something that was underrepresented in its training data — a specialised vocabulary, a private document, a recent development — it will extrapolate from what it does know and produce something that *sounds right* but may not *be right*.
+When you ask an LLM about something that was underrepresented in its training data (a specialised vocabulary, a private document, a recent development), it will extrapolate from what it does know and produce something that *sounds right* but may not *be right*.
 
 This is a hallucination: confident generation in the absence of reliable knowledge.
 
@@ -41,7 +41,7 @@ The insight behind RAG is simple: **before generating an answer, give the model 
 
 Instead of relying on what the model memorised during training, you retrieve the relevant documents from an external knowledge base when the question is asked, inject them into the prompt as context, and let the model generate its answer based on that grounded context.
 
-The model's job shifts from *"remember the answer"* to *"read this relevant material and answer based on it"* — a much more reliable cognitive task.
+The model's job shifts from *"remember the answer"* to *"read this relevant material and answer based on it"*, a more reliable process.
 
 ![RAG pipeline](figures/rag_pipeline.svg)
 
