@@ -256,7 +256,7 @@ RAG is not always the right tool. Here is a simple guide:
 
 ## Try It Yourself
 
-####The complete [tutorial notebook](https://github.com/AtillaKaanAlkan/RAG-LanguageAI2026) — with code for all three approaches, evaluation metrics in `uat_rag_tutorial-v2.ipynb`.
+#### The complete [tutorial notebook](https://github.com/AtillaKaanAlkan/RAG-LanguageAI2026) — with code for all three approaches, evaluation metrics in `uat_rag_tutorial-v2.ipynb`.
 ---
 
 *Written by Atilla Alkan — Harvard-Smithsonian Center for Astrophysics / NASA Astrophysics Data System*
