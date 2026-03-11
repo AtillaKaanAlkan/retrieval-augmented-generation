@@ -1,0 +1,74 @@
+<svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+
+  <rect width="900" height="300" fill="#F8FAFC" rx="12"/>
+  <text x="450" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1F4E79">Semantic Similarity in Embedding Space</text>
+  <text x="450" y="46" text-anchor="middle" font-size="11" fill="#888">Similar abstracts cluster together — RAG retrieves the nearest neighbors to the query</text>
+
+  <!-- Coordinate axes -->
+  <line x1="80" y1="260" x2="820" y2="260" stroke="#CCC" stroke-width="1"/>
+  <line x1="80" y1="260" x2="80" y2="60" stroke="#CCC" stroke-width="1"/>
+  <text x="450" y="282" text-anchor="middle" font-size="10" fill="#AAA">embedding dimension 1</text>
+  <text x="30" y="160" text-anchor="middle" font-size="10" fill="#AAA" transform="rotate(-90,30,160)">embedding dimension 2</text>
+
+  <!-- Cluster 1: Black holes / accretion -->
+  <ellipse cx="220" cy="150" rx="80" ry="60" fill="#EBF3FB" stroke="#2E75B6" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.7"/>
+  <text x="220" y="96" text-anchor="middle" font-size="10" fill="#1F4E79" font-weight="bold">Black holes &amp; Accretion</text>
+
+  <circle cx="200" cy="140" r="7" fill="#2E75B6"/>
+  <text x="200" y="126" text-anchor="middle" font-size="9" fill="#1F4E79">BH jets</text>
+
+  <circle cx="240" cy="160" r="7" fill="#2E75B6"/>
+  <text x="240" y="178" text-anchor="middle" font-size="9" fill="#1F4E79">AGN disks</text>
+
+  <circle cx="195" cy="175" r="7" fill="#2E75B6"/>
+  <text x="175" y="190" text-anchor="middle" font-size="9" fill="#1F4E79">X-ray binaries</text>
+
+  <!-- Cluster 2: Exoplanets -->
+  <ellipse cx="580" cy="130" rx="90" ry="65" fill="#F1F8E9" stroke="#558B2F" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.7"/>
+  <text x="580" y="74" text-anchor="middle" font-size="10" fill="#33691E" font-weight="bold">Exoplanets</text>
+
+  <circle cx="555" cy="120" r="7" fill="#558B2F"/>
+  <text x="535" y="110" text-anchor="middle" font-size="9" fill="#33691E">transits</text>
+
+  <circle cx="600" cy="140" r="7" fill="#558B2F"/>
+  <text x="620" y="140" text-anchor="middle" font-size="9" fill="#33691E">atmospheres</text>
+
+  <circle cx="570" cy="155" r="7" fill="#558B2F"/>
+  <text x="555" y="170" text-anchor="middle" font-size="9" fill="#33691E">hot Jupiters</text>
+
+  <!-- Cluster 3: Galaxies -->
+  <ellipse cx="430" cy="220" rx="75" ry="45" fill="#FFF8ED" stroke="#C55A11" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.7"/>
+  <text x="430" y="200" text-anchor="middle" font-size="10" fill="#7F3F00" font-weight="bold">Galaxies</text>
+
+  <circle cx="400" cy="220" r="7" fill="#C55A11"/>
+  <text x="385" y="238" text-anchor="middle" font-size="9" fill="#7F3F00">star formation</text>
+
+  <circle cx="455" cy="225" r="7" fill="#C55A11"/>
+  <text x="470" y="240" text-anchor="middle" font-size="9" fill="#7F3F00">mergers</text>
+
+  <!-- QUERY POINT -->
+  <circle cx="218" cy="148" r="11" fill="#C62828" stroke="white" stroke-width="2"/>
+  <text x="218" y="152" text-anchor="middle" font-size="9" font-weight="bold" fill="white">Q</text>
+  <text x="218" y="130" text-anchor="middle" font-size="10" font-weight="bold" fill="#C62828">Query abstract</text>
+
+  <!-- Retrieval arrows from query to nearest -->
+  <line x1="218" y1="148" x2="203" y2="141" stroke="#C62828" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#qa)"/>
+  <line x1="218" y1="148" x2="238" y2="159" stroke="#C62828" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#qa)"/>
+  <line x1="218" y1="148" x2="197" y2="173" stroke="#C62828" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#qa)"/>
+
+  <!-- Legend for retrieval -->
+  <rect x="650" y="195" width="220" height="70" rx="8" fill="white" stroke="#CCC" stroke-width="1"/>
+  <text x="760" y="213" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Legend</text>
+  <circle cx="670" cy="228" r="6" fill="#C62828"/>
+  <text x="760" y="232" text-anchor="middle" font-size="9" fill="#333">Query abstract (to be labelled)</text>
+  <circle cx="670" cy="248" r="6" fill="#2E75B6"/>
+  <text x="760" y="252" text-anchor="middle" font-size="9" fill="#333">Training abstracts (indexed)</text>
+  <line x1="660" y1="262" x2="682" y2="262" stroke="#C62828" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="760" y="266" text-anchor="middle" font-size="9" fill="#333">Retrieval (top-3 nearest)</text>
+
+  <defs>
+    <marker id="qa" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#C62828"/>
+    </marker>
+  </defs>
+</svg>
