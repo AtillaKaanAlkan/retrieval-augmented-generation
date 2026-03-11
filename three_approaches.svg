@@ -1,0 +1,94 @@
+<svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+
+  <rect width="900" height="260" fill="#F8FAFC" rx="12"/>
+  <text x="450" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1F4E79">Three Approaches to UAT Keyword Assignment</text>
+
+  <!-- ── ZERO-SHOT ──────────────────────────────────────────── -->
+  <rect x="20" y="44" width="260" height="200" rx="10" fill="#EBF3FB" stroke="#2E75B6" stroke-width="2"/>
+  <rect x="20" y="44" width="260" height="36" rx="10" fill="#2E75B6"/>
+  <rect x="20" y="62" width="260" height="18" fill="#2E75B6"/>
+  <text x="150" y="67" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🔵  Zero-Shot</text>
+
+  <!-- abstract box -->
+  <rect x="40" y="92" width="220" height="38" rx="6" fill="white" stroke="#90CAF9" stroke-width="1.2"/>
+  <text x="150" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565C0">Abstract</text>
+  <text x="150" y="121" text-anchor="middle" font-size="9" fill="#555">"We study black hole accretion..."</text>
+
+  <line x1="150" y1="132" x2="150" y2="150" stroke="#2E75B6" stroke-width="1.5" marker-end="url(#b1)"/>
+
+  <!-- LLM box -->
+  <rect x="40" y="152" width="220" height="32" rx="6" fill="#DEEAF1" stroke="#2E75B6" stroke-width="1.2"/>
+  <text x="150" y="167" text-anchor="middle" font-size="10" font-weight="bold" fill="#1F4E79">LLM (no context)</text>
+  <text x="150" y="179" text-anchor="middle" font-size="9" fill="#555">relies on training knowledge</text>
+
+  <line x1="150" y1="186" x2="150" y2="202" stroke="#2E75B6" stroke-width="1.5" marker-end="url(#b1)"/>
+
+  <rect x="40" y="204" width="220" height="26" rx="6" fill="#BBDEFB" stroke="#1565C0" stroke-width="1"/>
+  <text x="150" y="221" text-anchor="middle" font-size="9" fill="#0D47A1">black holes, X-ray binaries, jets...</text>
+
+  <text x="150" y="248" text-anchor="middle" font-size="9" fill="#666" font-style="italic">⚠ may not know exact UAT terms</text>
+
+  <!-- ── FEW-SHOT ──────────────────────────────────────────── -->
+  <rect x="320" y="44" width="260" height="200" rx="10" fill="#FFF8ED" stroke="#C55A11" stroke-width="2"/>
+  <rect x="320" y="44" width="260" height="36" rx="10" fill="#C55A11"/>
+  <rect x="320" y="62" width="260" height="18" fill="#C55A11"/>
+  <text x="450" y="67" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🟠  Few-Shot</text>
+
+  <!-- fixed examples -->
+  <rect x="340" y="92" width="220" height="50" rx="6" fill="white" stroke="#FFCC80" stroke-width="1.2"/>
+  <text x="450" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#7F3F00">3 Fixed Examples</text>
+  <text x="450" y="120" text-anchor="middle" font-size="9" fill="#555">Abstract A → label1, label2</text>
+  <text x="450" y="132" text-anchor="middle" font-size="9" fill="#555">Abstract B → label3, label4  ← same for every query</text>
+
+  <line x1="450" y1="144" x2="450" y2="152" stroke="#C55A11" stroke-width="1.5" marker-end="url(#b2)"/>
+
+  <!-- abstract -->
+  <rect x="340" y="154" width="220" height="28" rx="6" fill="white" stroke="#FFCC80" stroke-width="1.2"/>
+  <text x="450" y="168" text-anchor="middle" font-size="10" font-weight="bold" fill="#7F3F00">Abstract</text>
+  <text x="450" y="179" text-anchor="middle" font-size="9" fill="#555">"We study black hole accretion..."</text>
+
+  <line x1="450" y1="184" x2="450" y2="198" stroke="#C55A11" stroke-width="1.5" marker-end="url(#b2)"/>
+
+  <rect x="340" y="200" width="220" height="26" rx="6" fill="#FFE0B2" stroke="#C55A11" stroke-width="1"/>
+  <text x="450" y="218" text-anchor="middle" font-size="9" fill="#7F3F00">black holes, accretion disks...</text>
+
+  <text x="450" y="248" text-anchor="middle" font-size="9" fill="#666" font-style="italic">⚠ fixed examples may be irrelevant</text>
+
+  <!-- ── RAG ──────────────────────────────────────────────── -->
+  <rect x="620" y="44" width="260" height="200" rx="10" fill="#F1F8E9" stroke="#558B2F" stroke-width="2"/>
+  <rect x="620" y="44" width="260" height="36" rx="10" fill="#558B2F"/>
+  <rect x="620" y="62" width="260" height="18" fill="#558B2F"/>
+  <text x="750" y="67" text-anchor="middle" font-size="13" font-weight="bold" fill="white">🟢  RAG</text>
+
+  <!-- retrieved examples -->
+  <rect x="640" y="92" width="220" height="50" rx="6" fill="white" stroke="#AED581" stroke-width="1.2"/>
+  <text x="750" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#33691E">3 Retrieved Examples</text>
+  <text x="750" y="120" text-anchor="middle" font-size="9" fill="#555">most similar to the query</text>
+  <text x="750" y="132" text-anchor="middle" font-size="9" fill="#388E3C">← changes per abstract ✓</text>
+
+  <line x1="750" y1="144" x2="750" y2="152" stroke="#558B2F" stroke-width="1.5" marker-end="url(#b3)"/>
+
+  <!-- abstract -->
+  <rect x="640" y="154" width="220" height="28" rx="6" fill="white" stroke="#AED581" stroke-width="1.2"/>
+  <text x="750" y="168" text-anchor="middle" font-size="10" font-weight="bold" fill="#33691E">Abstract</text>
+  <text x="750" y="179" text-anchor="middle" font-size="9" fill="#555">"We study black hole accretion..."</text>
+
+  <line x1="750" y1="184" x2="750" y2="198" stroke="#558B2F" stroke-width="1.5" marker-end="url(#b3)"/>
+
+  <rect x="640" y="200" width="220" height="26" rx="6" fill="#DCEDC8" stroke="#558B2F" stroke-width="1"/>
+  <text x="750" y="218" text-anchor="middle" font-size="9" fill="#1B5E20">black holes, accretion, AGN...</text>
+
+  <text x="750" y="248" text-anchor="middle" font-size="9" fill="#33691E" font-style="italic">✓ grounded in verified labels</text>
+
+  <defs>
+    <marker id="b1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#2E75B6"/>
+    </marker>
+    <marker id="b2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#C55A11"/>
+    </marker>
+    <marker id="b3" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#558B2F"/>
+    </marker>
+  </defs>
+</svg>

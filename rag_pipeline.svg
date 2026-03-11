@@ -1,0 +1,106 @@
+<svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="340" fill="#F8FAFC" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#1F4E79">How RAG Works — The Pipeline</text>
+
+  <!-- ── INDEXING PHASE (top row) ─────────────────────────── -->
+  <text x="80" y="68" text-anchor="middle" font-size="11" fill="#888" font-style="italic">① Indexing (done once)</text>
+  <line x1="20" y1="74" x2="140" y2="74" stroke="#CCC" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Train abstracts box -->
+  <rect x="20" y="82" width="140" height="52" rx="8" fill="#DEEAF1" stroke="#2E75B6" stroke-width="1.5"/>
+  <text x="90" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#1F4E79">Training Abstracts</text>
+  <text x="90" y="117" text-anchor="middle" font-size="10" fill="#444">+ verified UAT labels</text>
+  <text x="90" y="129" text-anchor="middle" font-size="9" fill="#888">18,677 documents</text>
+
+  <!-- Arrow -->
+  <line x1="162" y1="108" x2="198" y2="108" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Embedding model box -->
+  <rect x="200" y="82" width="140" height="52" rx="8" fill="#E2EFDA" stroke="#70AD47" stroke-width="1.5"/>
+  <text x="270" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#375623">Embedding Model</text>
+  <text x="270" y="117" text-anchor="middle" font-size="10" fill="#444">mxbai-embed-large</text>
+  <text x="270" y="129" text-anchor="middle" font-size="9" fill="#888">text → vector</text>
+
+  <!-- Arrow -->
+  <line x1="342" y1="108" x2="378" y2="108" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Vector store box -->
+  <rect x="380" y="82" width="140" height="52" rx="8" fill="#FFF2CC" stroke="#C55A11" stroke-width="1.5"/>
+  <text x="450" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#7F3F00">Vector Store</text>
+  <text x="450" y="117" text-anchor="middle" font-size="10" fill="#444">ChromaDB</text>
+  <text x="450" y="129" text-anchor="middle" font-size="9" fill="#888">18,677 vectors stored</text>
+
+  <!-- ── QUERY PHASE (bottom) ───────────────────────────────── -->
+  <text x="90" y="172" text-anchor="middle" font-size="11" fill="#888" font-style="italic">② Query (per abstract)</text>
+  <line x1="20" y1="178" x2="140" y2="178" stroke="#CCC" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- New abstract -->
+  <rect x="20" y="186" width="140" height="52" rx="8" fill="#FCE4EC" stroke="#C62828" stroke-width="1.5"/>
+  <text x="90" y="206" text-anchor="middle" font-size="11" font-weight="bold" fill="#8B0000">New Abstract</text>
+  <text x="90" y="221" text-anchor="middle" font-size="10" fill="#444">(from test set)</text>
+  <text x="90" y="233" text-anchor="middle" font-size="9" fill="#888">to be labelled</text>
+
+  <!-- Arrow: new abstract → embed -->
+  <line x1="162" y1="212" x2="198" y2="212" stroke="#C62828" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr2)"/>
+
+  <!-- Embed (same model) -->
+  <rect x="200" y="186" width="140" height="52" rx="8" fill="#E2EFDA" stroke="#70AD47" stroke-width="1.5"/>
+  <text x="270" y="206" text-anchor="middle" font-size="11" font-weight="bold" fill="#375623">Embedding Model</text>
+  <text x="270" y="221" text-anchor="middle" font-size="10" fill="#444">(same model)</text>
+  <text x="270" y="233" text-anchor="middle" font-size="9" fill="#888">query vector</text>
+
+  <!-- Arrow: embed → vector store (diagonal up) -->
+  <line x1="342" y1="208" x2="378" y2="128" stroke="#C62828" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr2)"/>
+  <text x="375" y="175" font-size="9" fill="#888" transform="rotate(-38,375,175)">similarity search</text>
+
+  <!-- Arrow: vector store → retrieved docs -->
+  <line x1="522" y1="108" x2="558" y2="108" stroke="#C55A11" stroke-width="1.8" marker-end="url(#arr3)"/>
+
+  <!-- Retrieved docs -->
+  <rect x="560" y="82" width="150" height="52" rx="8" fill="#FFF2CC" stroke="#C55A11" stroke-width="1.5"/>
+  <text x="635" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#7F3F00">Top-3 Similar</text>
+  <text x="635" y="115" text-anchor="middle" font-size="10" fill="#444">Abstracts + Labels</text>
+  <text x="635" y="129" text-anchor="middle" font-size="9" fill="#888">retrieved by similarity</text>
+
+  <!-- Arrow: retrieved → LLM (diagonal down) -->
+  <line x1="635" y1="136" x2="750" y2="186" stroke="#C55A11" stroke-width="1.8" marker-end="url(#arr3)"/>
+
+  <!-- Arrow: new abstract → LLM -->
+  <line x1="162" y1="220" x2="728" y2="220" stroke="#C62828" stroke-width="1.4" stroke-dasharray="5,3"/>
+  <line x1="728" y1="220" x2="728" y2="210" stroke="#C62828" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#arr2)"/>
+
+  <!-- LLM box -->
+  <rect x="720" y="186" width="150" height="52" rx="8" fill="#EDE7F6" stroke="#5E35B1" stroke-width="1.5"/>
+  <text x="795" y="206" text-anchor="middle" font-size="11" font-weight="bold" fill="#311B92">DeepSeek-Reasoner</text>
+  <text x="795" y="221" text-anchor="middle" font-size="10" fill="#444">reads context</text>
+  <text x="795" y="233" text-anchor="middle" font-size="9" fill="#888">generates labels</text>
+
+  <!-- Arrow: LLM → output -->
+  <line x1="795" y1="240" x2="795" y2="270" stroke="#5E35B1" stroke-width="2" marker-end="url(#arr4)"/>
+
+  <!-- Output -->
+  <rect x="720" y="272" width="150" height="42" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5"/>
+  <text x="795" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#1B5E20">UAT Labels</text>
+  <text x="795" y="306" text-anchor="middle" font-size="9" fill="#444">black holes, accretion, ...</text>
+
+  <!-- Arrowhead markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2E75B6"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#C62828"/>
+    </marker>
+    <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#C55A11"/>
+    </marker>
+    <marker id="arr4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5E35B1"/>
+    </marker>
+  </defs>
+
+</svg>
