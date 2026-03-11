@@ -43,33 +43,33 @@ Instead of relying on what the model memorised during training, you retrieve the
 
 The model's job shifts from *"remember the answer"* to *"read this relevant material and answer based on it"*, a more reliable process.
 
-![RAG pipeline](figures/rag_pipeline.svg)
+![RAG pipeline](rag_pipeline.svg)
 
 This is the RAG pipeline in three steps:
 
-**1. Index** — convert your knowledge base (documents, papers, records) into searchable vectors and store them in a vector database. This is done once.
+**1. Index**: convert your knowledge base (documents, papers, records) into searchable vectors and store them in a vector database. This is done once.
 
-**2. Retrieve** — when a query arrives, find the most semantically similar documents in the database.
+**2. Retrieve**: when a query arrives, find the most semantically similar documents in the database.
 
-**3. Generate** — inject the retrieved documents into the prompt as context, then let the LLM generate its answer grounded in that context.
+**3. Generate**:  inject the retrieved documents into the prompt as context, then let the LLM generate its answer grounded in that context.
 
-The result is an LLM that answers based on *your* knowledge base — not on statistical associations in the training data.
+The result is an LLM that answers based on *your* knowledge base rather than on statistical associations in the training data.
 
 ---
 
-## A Concrete Example: Assigning Astronomy Keywords
+## A Concrete Example: Assigning Astronomy Keywords to Scholarly Papers
 
-Abstract concepts become clearer with a concrete example. Let's use one from astrophysics — a domain where specialised vocabulary makes the LLM hallucination problem particularly visible.
+Abstract concepts become clearer with a concrete example. Let's use one from astrophysics, a domain where specialised vocabulary makes the LLM hallucination problem particularly visible.
 
 ### The task
 
-NASA ADS indexes hundreds of thousands of astronomical papers. Each paper needs keywords from the **Unified Astronomy Thesaurus (UAT)** — a controlled vocabulary of over 2,000 standardised astronomy concepts. Labels like `black holes`, `accretion disks`, `transit spectroscopy`, or `chemically peculiar stars`.
+NASA ADS indexes hundreds of thousands of astronomical papers. Each paper needs keywords from the **Unified Astronomy Thesaurus (UAT)**,  a controlled vocabulary of over 2,000 standardised astronomy concepts. Labels like `black holes`, `accretion disks`, `transit spectroscopy`, or `chemically peculiar stars`.
 
 A *controlled vocabulary* means only approved terms are valid. `"Black hole physics"` is not a UAT concept. `"Black holes"` is. The difference matters for search and discoverability.
 
 Can an LLM assign these keywords automatically? Let's try three strategies.
 
-![Three approaches comparison](figures/three_approaches.svg)
+![Three approaches comparison](three_approaches.svg)
 
 ---
 
@@ -96,12 +96,12 @@ spectral synthesis, optical spectroscopy, LTE, iron peak elements,
 atmospheric stratification, spectral line formation, atomic data...
 ```
 
-**Ground truth (verified by experts):**
+**Ground truth (authors assigned keywords):**
 ```
 chemically peculiar stars, mercury-manganese stars
 ```
 
-The model found one correct label but generated eleven predictions. Most are astronomically reasonable — but they are not the verified UAT terms for this paper. The model over-predicts and its vocabulary drifts from the standard.
+The model found one correct label but generated eleven predictions. Most are astronomically reasonable, but they are not the verified UAT terms for this paper. The model over-predicts, and its vocabulary drifts from the standard.
 
 This is the hallucination problem in action: the model knows roughly what the paper is about, but it does not know the precise UAT taxonomy, so it generates plausible-sounding alternatives.
 
@@ -136,15 +136,15 @@ chemically peculiar stars, stellar abundances, stellar atmospheres,
 spectral line identification
 ```
 
-Better. The model now produces fewer, more focused predictions aligned with UAT conventions. It found the correct `chemically peculiar stars`.
+Better. The model now produces fewer, more focused predictions aligned with UAT conventions. It also found the correct `chemically peculiar stars`.
 
-**The bottleneck:** the three examples are *fixed*. They are randomly selected once and reused for every query — regardless of relevance. A paper about solar wind gets the same examples as a paper about black holes. The model is calibrated on the wrong sub-field for most queries.
+**The bottleneck:** the three examples are *fixed*. They are randomly selected once and reused for every query (regardless of relevance). A paper about solar wind gets the same examples as a paper about black holes. The model is calibrated on the wrong sub-field for most queries.
 
 ---
 
 ### Strategy 3: RAG — Retrieve the Right Examples
 
-RAG solves the few-shot bottleneck by making the examples *dynamic*. For each new abstract, we automatically retrieve the three most similar abstracts from a database of 18,677 labeled training papers — and use those as examples.
+RAG solves the few-shot bottleneck by making the examples *dynamic*. For each new abstract, we automatically retrieve the three most similar abstracts from a database of 18,677 labeled training papers and use those as examples.
 
 A paper about chemically peculiar stars now provides examples of chemically peculiar stars. A paper on exoplanets includes examples of exoplanets.
 
@@ -163,11 +163,11 @@ This is RAG working as intended: the retrieved examples are not just similar in 
 
 The retrieval step works because of a property called **semantic embeddings**.
 
-An embedding model converts a piece of text into a list of numbers — a vector — in such a way that **texts with similar meanings produce similar vectors**. This happens even when the texts use completely different words.
+An embedding model converts a piece of text into a list of numbers (a vector) in such a way that **texts with similar meanings produce similar vectors**. This happens even when the texts use completely different words.
 
-A paper about *"matter infalling onto a compact object"* and a paper about *"gas accretion onto a black hole"* will have similar embeddings — because they describe the same physical phenomenon. The retrieval system can find relevant examples even with no keyword overlap.
+A paper about *"matter infalling onto a compact object"* and a paper about *"gas accretion onto a black hole"* will have similar embeddings, because they describe the same physical phenomenon. The retrieval system can find relevant examples even with no keyword overlap.
 
-![Embedding space](figures/embedding_space.svg)
+![Embedding space](embedding_space.svg)
 
 When you visualise these vectors in two dimensions, papers naturally cluster by topic. Similar abstracts are close together. When a new query arrives, the retrieval system simply finds the nearest neighbors in this space — the papers that are geometrically closest to the query vector.
 
@@ -177,7 +177,7 @@ This is what makes RAG semantically aware rather than just keyword-based.
 
 ## How to Measure the Difference
 
-For tasks where each item can have multiple correct labels — like UAT keyword assignment — standard accuracy does not work. We use **ranked metrics**:
+For tasks where each item can have multiple correct labels (like UAT keyword assignment), standard accuracy does not work. We use **ranked metrics**:
 
 - **P@k (Precision at k):** of the top-k predictions, what fraction were correct?
 - **R@k (Recall at k):** of all correct labels, how many appeared in the top-k?
@@ -206,7 +206,7 @@ The UAT example is a particularly clean illustration of the general principle, b
 
 **Customer support** — a support bot that retrieves the relevant section of a product manual before answering a troubleshooting question. It does not need to have memorised the entire documentation — it retrieves what it needs, when it needs it.
 
-In every case, the core insight is the same: **LLMs are powerful generators but unreliable memorisers of specialised knowledge. RAG separates these two concerns** — a retrieval system handles the knowledge lookup, and the LLM handles the synthesis and generation.
+In every case, the core insight is the same: **LLMs are powerful generators but unreliable memorisers of specialised knowledge. RAG separates these two concerns: a retrieval system handles knowledge lookup, and the LLM handles synthesis and generation.
 
 ---
 
@@ -232,17 +232,15 @@ RAG is not always the right tool. Here is a simple guide:
 
 **Vector store duplication** is the most frequent bug. If you run the indexing step more than once without clearing the database, every document gets added multiple times. The retrieval system then returns duplicates, significantly degrading quality. Always check whether your collection is already populated before adding documents.
 
-**Poor embedding model choice** matters more than most tutorials acknowledge. A general-purpose embedding model works reasonably well, but a domain-adapted model (e.g. astroBERT for astronomy) will produce better semantic clusters and better retrieval. The quality of retrieval sets the ceiling for RAG performance.
+**Poor embedding model choice** matters more than most tutorials acknowledge. A general-purpose embedding model works reasonably well, but a domain-adapted model (e.g., astroBERT for astronomy) yields better semantic clusters and retrieval. The quality of retrieval sets the ceiling for RAG performance.
 
 **Small test samples** produce noisy metrics. Evaluating on 5 or 10 examples is useful for a quick sanity check, but you need at least 50–100 examples for stable P@k and R@k values. Do not draw strong conclusions from a handful of predictions.
-
-**Exact-match evaluation is strict**. Comparing predicted labels to ground truth using exact string matching means `"black hole physics"` and `"black holes"` count as different — even if they are semantically close. This systematically underestimates RAG performance when the model predicts near-synonyms of the correct term.
 
 ---
 
 ## Key Takeaways
 
-**The problem:** LLMs hallucinate when they lack precise knowledge — especially for specialised vocabularies, private documents, or post-training information.
+**The problem:** LLMs hallucinate when they lack precise knowledge, especially for specialised vocabularies, private documents, or post-training information.
 
 **The solution:** RAG connects the model to an external knowledge base at inference time. Retrieve first, then generate.
 
@@ -258,18 +256,7 @@ RAG is not always the right tool. Here is a simple guide:
 
 ## Try It Yourself
 
-The complete tutorial notebook — with code for all three approaches, evaluation metrics, and side-by-side comparison — is in `uat_rag_tutorial.ipynb`.
-
-```bash
-git clone https://github.com/YOUR_USERNAME/uat-rag-tutorial
-cd uat-rag-tutorial
-pip install -r requirements.txt
-echo "deepseek_api_key=YOUR_KEY" > .env
-jupyter notebook uat_rag_tutorial.ipynb
-```
-
-Or try the [live Gradio demo](https://huggingface.co/spaces/YOUR_USERNAME/uat-rag-tutorial) — paste the same abstract into the Zero-Shot, Few-Shot, and RAG tabs and compare the outputs directly.
-
+The complete [tutorial notebook](https://github.com/AtillaKaanAlkan/RAG-LanguageAI2026) — with code for all three approaches, evaluation metrics in `uat_rag_tutorial-v2.ipynb`.
 ---
 
 *Written by Atilla Alkan — Harvard-Smithsonian Center for Astrophysics / NASA Astrophysics Data System*
