@@ -20,7 +20,7 @@ This is not a bug that will be fixed in the next version. It is a fundamental co
 
 To understand RAG, you first need to understand why LLMs fail at specialised tasks.
 
-An LLM is trained by reading an enormous quantity of text — books, websites, scientific papers, forums — and learning to predict what word comes next. After training on hundreds of billions of words, the model has absorbed a broad, statistical picture of human knowledge. It knows that black holes are dense, that Shakespeare wrote Hamlet, and that Python uses indentation for code blocks.
+An LLM is trained by reading an enormous quantity of textbooks, websites, scientific papers, and forums, and learning to predict what word comes next. After training on hundreds of billions of words, the model has absorbed a broad, statistical picture of human knowledge. It knows that black holes are dense, that Shakespeare wrote Hamlet, and that Python uses indentation for code blocks.
 
 But this knowledge is:
 
@@ -31,7 +31,7 @@ But this knowledge is:
 
 When you ask an LLM about something that was underrepresented in its training data — a specialised vocabulary, a private document, a recent development — it will extrapolate from what it does know and produce something that *sounds right* but may not *be right*.
 
-This is hallucination: confident generation in the absence of reliable knowledge.
+This is a hallucination: confident generation in the absence of reliable knowledge.
 
 ---
 
@@ -39,7 +39,7 @@ This is hallucination: confident generation in the absence of reliable knowledge
 
 The insight behind RAG is simple: **before generating an answer, give the model the relevant information it needs**.
 
-Instead of relying on what the model memorised during training, you retrieve the relevant documents from an external knowledge base at the moment the question is asked, inject them into the prompt as context, and let the model generate its answer based on that grounded context.
+Instead of relying on what the model memorised during training, you retrieve the relevant documents from an external knowledge base when the question is asked, inject them into the prompt as context, and let the model generate its answer based on that grounded context.
 
 The model's job shifts from *"remember the answer"* to *"read this relevant material and answer based on it"* — a much more reliable cognitive task.
 
@@ -53,7 +53,7 @@ This is the RAG pipeline in three steps:
 
 **3. Generate** — inject the retrieved documents into the prompt as context, then let the LLM generate its answer grounded in that context.
 
-The result is an LLM that answers based on *your* knowledge base — not on statistical associations from training data.
+The result is an LLM that answers based on *your* knowledge base — not on statistical associations in the training data.
 
 ---
 
@@ -138,7 +138,7 @@ spectral line identification
 
 Better. The model now produces fewer, more focused predictions aligned with UAT conventions. It found the correct `chemically peculiar stars`.
 
-**The bottleneck:** the three examples are *fixed*. They are randomly selected once and reused for every query — regardless of whether they are relevant. A paper about solar wind gets the same examples as a paper about black holes. The model is calibrated on the wrong sub-field for most queries.
+**The bottleneck:** the three examples are *fixed*. They are randomly selected once and reused for every query — regardless of relevance. A paper about solar wind gets the same examples as a paper about black holes. The model is calibrated on the wrong sub-field for most queries.
 
 ---
 
@@ -146,7 +146,7 @@ Better. The model now produces fewer, more focused predictions aligned with UAT 
 
 RAG solves the few-shot bottleneck by making the examples *dynamic*. For each new abstract, we automatically retrieve the three most similar abstracts from a database of 18,677 labeled training papers — and use those as examples.
 
-A paper about chemically peculiar stars now gets examples about chemically peculiar stars. A paper about exoplanets gets examples about exoplanets.
+A paper about chemically peculiar stars now provides examples of chemically peculiar stars. A paper on exoplanets includes examples of exoplanets.
 
 **Model output with RAG:**
 ```
@@ -219,7 +219,7 @@ RAG is not always the right tool. Here is a simple guide:
 | General knowledge question, no specific source needed | Zero-Shot |
 | Task with a clear format, small fixed set of examples works | Few-Shot |
 | Specialised vocabulary or controlled terms | RAG |
-| Private or proprietary documents the model cannot know | RAG |
+| Private or proprietary documents, the model cannot know | RAG |
 | Knowledge that changes over time (post-training cutoff) | RAG |
 | Need for verifiable, source-grounded answers | RAG |
 | Very small knowledge base (< 50 documents) | Few-Shot is simpler |
@@ -230,7 +230,7 @@ RAG is not always the right tool. Here is a simple guide:
 
 ## Common Pitfalls
 
-**Vector store duplication** is the most frequent bug. If you run the indexing step more than once without clearing the database, every document gets added multiple times. The retrieval system then returns duplicates, degrading quality significantly. Always check whether your collection is already populated before adding documents.
+**Vector store duplication** is the most frequent bug. If you run the indexing step more than once without clearing the database, every document gets added multiple times. The retrieval system then returns duplicates, significantly degrading quality. Always check whether your collection is already populated before adding documents.
 
 **Poor embedding model choice** matters more than most tutorials acknowledge. A general-purpose embedding model works reasonably well, but a domain-adapted model (e.g. astroBERT for astronomy) will produce better semantic clusters and better retrieval. The quality of retrieval sets the ceiling for RAG performance.
 
@@ -252,7 +252,7 @@ RAG is not always the right tool. Here is a simple guide:
 - **Few-Shot** — simple improvement, calibrates the model to your format, but the fixed examples become a bottleneck for diverse corpora
 - **RAG** — dynamic retrieval makes examples always relevant; scales with more data; grounds the model in verified knowledge
 
-**The central insight of RAG:** you do not need to fine-tune a model to give it domain knowledge. You retrieve that knowledge at inference time, inject it as context, and let the model do what it does best — synthesis and generation.
+**The central insight of RAG:** You do not need to fine-tune a model to give it domain knowledge. You retrieve that knowledge at inference time, inject it as context, and let the model do what it does best — synthesis and generation.
 
 ---
 
@@ -272,13 +272,4 @@ Or try the [live Gradio demo](https://huggingface.co/spaces/YOUR_USERNAME/uat-ra
 
 ---
 
-## Further Reading
-
-- Lewis et al. (2020) — [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401) — the original RAG paper
-- [Unified Astronomy Thesaurus](https://astrothesaurus.org)
-- [SciX UAT Keywords dataset](https://huggingface.co/datasets/adsabs/SciX_UAT_keywords)
-- AstroConcepts — LREC-COLING NSLP Workshop 2026
-
----
-
-*Written by Atilla Alkan — NASA ADS / Center for Astrophysics | Harvard & Smithsonian*
+*Written by Atilla Alkan — Harvard-Smithsonian Center for Astrophysics / NASA Astrophysics Data System*
