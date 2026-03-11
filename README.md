@@ -155,7 +155,7 @@ chemically peculiar stars, mercury-manganese stars
 
 Both correct labels, nothing extra. The model's answer is grounded in the most relevant part of the training corpus.
 
-This is RAG working as intended: the retrieved examples are not just similar in topic — they come with verified, expert-assigned UAT labels that directly inform the model's output.
+This is RAG working as intended: the retrieved examples are not just similar in topic, they come with verified, expert-assigned UAT labels that directly inform the model's output.
 
 ---
 
@@ -169,7 +169,7 @@ A paper about *"matter infalling onto a compact object"* and a paper about *"gas
 
 ![Embedding space](embedding_space.svg)
 
-When you visualise these vectors in two dimensions, papers naturally cluster by topic. Similar abstracts are close together. When a new query arrives, the retrieval system simply finds the nearest neighbors in this space — the papers that are geometrically closest to the query vector.
+When you visualise these vectors in two dimensions, papers naturally cluster by topic. Similar abstracts are close together. When a new query arrives, the retrieval system simply finds the nearest neighbors in this space (the papers that are geometrically closest to the query vector).
 
 This is what makes RAG semantically aware rather than just keyword-based.
 
@@ -186,9 +186,9 @@ For tasks where each item can have multiple correct labels (like UAT keyword ass
 As k increases, precision falls (more predictions, more errors) and recall rises (more correct labels found). The three curves together tell you which method delivers the best quality-coverage trade-off.
 
 In general, RAG tends to show:
-- **Higher P@k at low k** — its first predictions are more reliable
-- **Competitive R@k** — it still finds most correct labels
-- **Better F1@k** overall, especially at intermediate k values
+- **Higher P@k at low k**: its first predictions are more reliable
+- **Competitive R@k**: it still finds most correct labels
+- **Better F1@k**: overall, especially at intermediate k values
 
 The advantage grows with corpus diversity. The more sub-fields your dataset spans, the more the fixed few-shot examples become irrelevant for a given query — and the more valuable dynamic retrieval becomes.
 
@@ -198,13 +198,13 @@ The advantage grows with corpus diversity. The more sub-fields your dataset span
 
 The UAT example is a particularly clean illustration of the general principle, but RAG is not specific to astronomy. The same architecture is used across many domains:
 
-**Enterprise knowledge management** — a chatbot that answers employee questions grounded in internal policy documents, wikis, and HR guidelines. Without RAG, it would hallucinate company-specific procedures. With RAG, it retrieves the relevant policy and answers from it.
+**Enterprise knowledge management**: a chatbot that answers employee questions grounded in internal policy documents, wikis, and HR guidelines. Without RAG, it would hallucinate company-specific procedures. With RAG, it retrieves the relevant policy and answers from it.
 
-**Legal research** — a tool that retrieves relevant case law and statutes before drafting a legal analysis. The controlled vocabulary problem is identical: legal terms have precise meanings that a general LLM will approximate but not get exactly right.
+**Legal research**: a tool that retrieves relevant case law and statutes before drafting a legal analysis. The controlled vocabulary problem is identical: legal terms have precise meanings that a general LLM will approximate but not get exactly right.
 
-**Medical assistance** — a clinical decision support tool grounded in drug databases, clinical guidelines, and diagnostic criteria. Hallucination here is not just inconvenient — it can be dangerous. RAG grounds the model in authoritative sources.
+**Medical assistance**: a clinical decision support tool grounded in drug databases, clinical guidelines, and diagnostic criteria. Hallucination here is not just inconvenient — it can be dangerous. RAG grounds the model in authoritative sources.
 
-**Customer support** — a support bot that retrieves the relevant section of a product manual before answering a troubleshooting question. It does not need to have memorised the entire documentation — it retrieves what it needs, when it needs it.
+**Customer support**: a support bot that retrieves the relevant section of a product manual before answering a troubleshooting question. It does not need to have memorised the entire documentation — it retrieves what it needs, when it needs it.
 
 In every case, the core insight is the same: **LLMs are powerful generators but unreliable memorisers of specialised knowledge. RAG separates these two concerns: a retrieval system handles knowledge lookup, and the LLM handles synthesis and generation.
 
@@ -224,7 +224,7 @@ RAG is not always the right tool. Here is a simple guide:
 | Need for verifiable, source-grounded answers | RAG |
 | Very small knowledge base (< 50 documents) | Few-Shot is simpler |
 
-**RAG adds the most value when your knowledge base is large, diverse, and specialised** — exactly the conditions that make fixed few-shot examples fail.
+**RAG adds the most value when your knowledge base is large, diverse, and specialised**, exactly the conditions that make fixed few-shot examples fail.
 
 ---
 
@@ -246,11 +246,11 @@ RAG is not always the right tool. Here is a simple guide:
 
 **The three strategies compared:**
 
-- **Zero-Shot** — fast, no data needed, but drifts from controlled vocabularies
-- **Few-Shot** — simple improvement, calibrates the model to your format, but the fixed examples become a bottleneck for diverse corpora
-- **RAG** — dynamic retrieval makes examples always relevant; scales with more data; grounds the model in verified knowledge
+- **Zero-Shot**: fast, no data needed, but drifts from controlled vocabularies
+- **Few-Shot**: simple improvement, calibrates the model to your format, but the fixed examples become a bottleneck for diverse corpora
+- **RAG**: dynamic retrieval makes examples always relevant; scales with more data; grounds the model in verified knowledge
 
-**The central insight of RAG:** You do not need to fine-tune a model to give it domain knowledge. You retrieve that knowledge at inference time, inject it as context, and let the model do what it does best — synthesis and generation.
+**The central insight of RAG:** You do not need to fine-tune a model to give it domain knowledge. You retrieve that knowledge at inference time, inject it as context, and let the model do its thing.
 
 ---
 
