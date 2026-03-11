@@ -2,7 +2,7 @@
 
 ### From the problem of LLM hallucination to more _reliable_ AI (illustrated with astronomical keyword assignment)
 
-*Part of the [UAT RAG Tutorial]([../README.md](https://github.com/AtillaKaanAlkan/RAG-LanguageAI2026)) — 2026 Language AI in the Space Sciences Workshop, Baltimore, USA.*
+*Part of the [UAT RAG Tutorial](https://github.com/AtillaKaanAlkan/RAG-LanguageAI2026) — 2026 Language AI in the Space Sciences Workshop, Baltimore, USA.*
 
 ---
 
